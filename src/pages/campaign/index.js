@@ -82,11 +82,6 @@ export default function Campaign() {
       title: "Tên Campaign",
     },
     {
-      dataIndex: "sdtList",
-      key: "sdtList",
-      title: "Danh sách SDT",
-    },
-    {
       dataIndex: "audioFile",
       key: "audioFile",
       title: "File Audio",

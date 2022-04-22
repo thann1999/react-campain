@@ -1,24 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import {
-  Form,
-  Input,
-  Button,
-  message,
-  Select,
-  DatePicker,
-  Modal,
-  Spin,
+  Button, DatePicker, Form,
+  Input, message, Modal,
+  Spin
 } from "antd";
+import React, { useEffect, useState } from "react";
+import CampaignAPI from "../../api/campaign.api";
 import validateMessages from "../../common/ValidateForm";
-import { ReloadOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import audio from "../../assets/audio/audio.wav";
-import UploadXLSX from "./UploadXLSX";
-import UploadAudio from "./UploadAudio";
 import { DATE_TIME_FORMAT } from "../../const/date-time.const";
-import dayjs from "dayjs";
 import { convertDateByFormat } from "../../helper/convert-date.helper";
 import MockServe from "../../services/mock.service";
-import CampaignAPI from "../../api/campaign.api";
+import UploadAudio from "./UploadAudio";
+import UploadXLSX from "./UploadXLSX";
 
 export default function CreateCampaign() {
   const [form] = Form.useForm();
@@ -59,16 +52,26 @@ export default function CreateCampaign() {
     formData.append('audio', audio)
     formData.append('startDate', startDate)
     formData.append('endDate', endDate)
-    MockServe.addData(name, '', audio.name, startDateFormat, endDateFormat)
 
-    const response = await CampaignAPI.createCampaign(formData)
-    if(response.status === 200) {
-      message.success(response.data.message)
-    } else {
+    try {
+      const response = await CampaignAPI.createCampaign(formData)
+      setSpinning(false)
+
+      if(response.status === 200) {
+        message.success(response.data.message)
+        MockServe.addData(name, audio.name, startDateFormat, endDateFormat)
+        setVisible(false);
+        return
+      }
+
       message.error(response.data.message)
+      setSpinning(false)
+    } catch (error) {
+      setSpinning(false)
     }
-    setSpinning(false)
-    setVisible(false);
+
+    
+
 
     // try {
     //   const foundPackage = packageOptions.find(

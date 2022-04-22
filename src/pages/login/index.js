@@ -1,16 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Card } from "antd";
-import AuthService from "../../services/auth.service";
+import { Button, Card, Form, Input } from "antd";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/img/logongoc.png";
-import videobackground from "../../assets/video/videobackground.mp4";
+import { DEFAULT_KEY_MENU } from "../../common/Wrapper";
+import { BaseContext } from "../../context/baseContext";
 
 const Login = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const {setKey} = useContext(BaseContext)
+
   useEffect(() => {
     // const currentUser = AuthService.getCurrentUser();
     // if (currentUser) {
@@ -24,7 +26,7 @@ const Login = () => {
 
   // Khi người dùng submit form
   const onFinish = async (value) => {
-    console.log(value);
+    setKey(DEFAULT_KEY_MENU)
     navigate("/campaign");
     // try {
     //   const response = await AuthService.login(value);
@@ -53,7 +55,7 @@ const Login = () => {
   return (
     <>
       { <video autoPlay muted loop id="myVideo">
-        <source src={videobackground} type="video/mp4" />
+        {/* <source src={videobackground} type="video/mp4" /> */}
       </video> }
       <div
         style={{

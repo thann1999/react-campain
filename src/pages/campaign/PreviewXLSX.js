@@ -6,9 +6,7 @@ export default function PreviewXLSX(data) {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    console.log(data);
     if (data) {
-      console.log(data);
       setTableData(data);
     }
   }, [data]);

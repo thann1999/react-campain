@@ -2,21 +2,22 @@
 import { message } from "antd";
 import axios from "axios";
 
-const CampaignAPI = {
-  createCampaign: async (params) => {
+class CallChargesAPI {
+  getAllCallChargesList = async () => {
     try {
       const response = await axios.request({
-        method: 'POST',
+        method: 'GET',
         baseURL: process.env.REACT_APP_BASE_URL,
-        url: `/campaign/create`,
-        data: params
+        url: `/cdr/list-all`,
       })
       return response
     } catch (error) {
       message.error('Error')
       throw error
     }
-  },
+  }
 };
 
-export default CampaignAPI;
+const instance = new CallChargesAPI()
+
+export default instance;

@@ -1,40 +1,29 @@
 /* eslint-disable no-restricted-globals */
-import { Layout, Menu, Card, Button, Breadcrumb } from "antd";
 import {
-  FileTextOutlined,
-  UserOutlined,
-  LogoutOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  TeamOutlined,
-  UsergroupAddOutlined,
-  AimOutlined,
+  AimOutlined, LogoutOutlined, UserOutlined,
+  PhoneOutlined,
 } from "@ant-design/icons";
-import { useContext } from "react";
+import { Breadcrumb, Layout, Menu } from "antd";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import authService from "../services/auth.service";
 import "../assets/css/style.css";
-import { BaseContext } from "../context/baseContext";
 import logo from "../assets/img/logongoc1.png";
+import { BaseContext } from "../context/baseContext";
+import authService from "../services/auth.service";
 
 const { Header, Content, Footer, Sider } = Layout;
 
+export const DEFAULT_KEY_MENU = "7" //Campaign
+
 export default function Wrapper(props) {
   const navigate = useNavigate();
-
-  const baseContext = useContext(BaseContext);
+  const {key, setKey, collapsed} = useContext(BaseContext);
 
   // const user = authService.getCurrentUser();
   // const roleId = user.role.id;
 
-  let key = 1;
-  if (location.pathname === "/campaign") {
-    key = "7";
-  } else if (location.pathname === "/profile") {
-    key = "8";
-  }
-
   const handleClick = (e) => {
+    setKey(e.key)
     switch (parseInt(e.key)) {
       case 7: {
         navigate("/campaign");
@@ -42,6 +31,10 @@ export default function Wrapper(props) {
       }
       case 8: {
         navigate("/profile");
+        break;
+      }
+      case 10: {
+        navigate('/call-charges')
         break;
       }
       default: {
@@ -67,9 +60,9 @@ export default function Wrapper(props) {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-      {!baseContext.collapsed && (
+      {!collapsed && (
         <div className="logo">
-         <img style={{ width: 120, height: 70, top: "7px" }} src={logo} alt=""/>
+         <img src={logo} alt=""/>
         </div>
       )}
         <Menu
@@ -87,6 +80,9 @@ export default function Wrapper(props) {
           <Menu.Item key="9" icon={<LogoutOutlined />}>
             Đăng xuất
           </Menu.Item>
+          <Menu.Item key="10" icon={<PhoneOutlined />}>
+            Cước cuộc gọi
+          </Menu.Item>
         </Menu>
       </Header>
       <Content
@@ -98,6 +94,9 @@ export default function Wrapper(props) {
           {key === "7" && <Breadcrumb.Item>Campaign</Breadcrumb.Item>}
           {key === "8" && (
             <Breadcrumb.Item>Thông tin người dùng</Breadcrumb.Item>
+          )}
+          {key === "10" && (
+            <Breadcrumb.Item>Cước cuộc gọi</Breadcrumb.Item>
           )}
 
           {/* <Breadcrumb.Item>List</Breadcrumb.Item>

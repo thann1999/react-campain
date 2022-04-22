@@ -10,7 +10,6 @@ class MockServiceClass {
       const obj = {
         id: i + 1,
         name: "Chiến dịch " + (i + 1),
-        sdtList: "file" + (i + 1) + ".xlxs",
         audioFile: "audio" + (i + 1) + ".wav",
         startDate: "02/01/22",
         endDate: "02/03/22",
@@ -42,11 +41,10 @@ class MockServiceClass {
     return result;
   }
 
-  addData (name, sdtList, audioFile, startDate, endDate) {
+  addData (name, audioFile, startDate, endDate) {
     this.campaignList.push({
       id: this.campaignList.length,
       name,
-      sdtList,
       audioFile,
       startDate,
       endDate,

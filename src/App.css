@@ -13,17 +13,24 @@
 .logo {
   float: left;
   width: 120px;
-  height: 31px;
-  margin: 16px 24px 16px 0;
-  background: rgba(255, 255, 255, 0.2);
+  height: 100vh;
+  margin: 2px 40px 0px 0px;
+  position: relative;
 }
+
+.logo > img {
+  width: 120px;
+  height: 60px;
+  position: absolute;
+}
+
 .site-layout .site-layout-background {
   background: #fff;
 }
-[data-theme="dark"] .site-layout .site-layout-background {
+[data-theme='dark'] .site-layout .site-layout-background {
   background: #141414;
 }
 
 .d-none {
-  display: "none" !important;
+  display: 'none' !important;
 }

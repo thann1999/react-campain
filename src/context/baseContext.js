@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import { DEFAULT_KEY_MENU } from "../common/Wrapper";
 
 /*
     There are four steps to using React context:
@@ -13,10 +14,11 @@ export const BaseContext = createContext();
 export const BaseProvider = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [key, setKey] = useState(DEFAULT_KEY_MENU)
 
   return (
     <BaseContext.Provider
-      value={{ collapsed, setCollapsed, refresh, setRefresh }}
+      value={{ collapsed, setCollapsed, refresh, setRefresh, key, setKey}}
     >
       {children}
     </BaseContext.Provider>
